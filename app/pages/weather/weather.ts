@@ -18,6 +18,8 @@ export class WeatherPage {
   API: string = "http://localhost:3001/api";
   quote: string;
   error: string;
+  weatherData:any;
+  weatherError:string;
   auth: AuthService;
   local: Storage = new Storage(LocalStorage);
   user: string;
@@ -37,6 +39,7 @@ export class WeatherPage {
   getCurrentPosition(){
     Geolocation.getCurrentPosition().then(pos => {
       console.log('lat: ' + pos.coords.latitude + ', lon: ' + pos.coords.longitude);
+      this.getWeatherNow(pos.coords.latitude,pos.coords.longitude);
     });
   }
 
@@ -57,6 +60,16 @@ export class WeatherPage {
         .subscribe(
             data => this.quote = data,
             err => this.error = err
+        );
+  }
+
+  getWeatherNow(lat,long) {
+    //Use a regular Http call to get the weather based on our lat and long
+    this.http.get(`http://api.openweathermap.org/data/2.5/weather?lat=${lat}&lon=${long}&appid=a2814607347e66e457d74dd92002c506`)
+        .map(res => res.json())
+        .subscribe(
+            data => this.weatherData=data,
+            err => this.weatherError = err
         );
   }
 }
