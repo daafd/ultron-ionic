@@ -4,6 +4,8 @@ import {FORM_DIRECTIVES} from 'angular2/common';
 import {JwtHelper} from 'angular2-jwt';
 import {AuthService} from '../../services/auth/auth';
 import 'rxjs/add/operator/map'
+import {Alert} from "ionic-angular/index";
+import {NavController} from "ionic-angular/index";
 
 @Page({
   templateUrl: 'build/pages/profile/profile.html',
@@ -23,7 +25,7 @@ export class ProfilePage {
   local: Storage = new Storage(LocalStorage);
   user: string;
 
-  constructor(private http: Http) {
+  constructor(private http: Http,public nav: NavController) {
     this.auth = AuthService;
     this.local.get('profile').then(profile => {
       this.user = JSON.parse(profile);
@@ -59,5 +61,12 @@ export class ProfilePage {
     this.error = null;
     this.local.set('id_token', token);
     this.user = this.jwtHelper.decodeToken(token).username;
+
+    let alert = Alert.create({
+      title: 'Welcome!',
+      subTitle: 'Hello, '+this.user+ ' , You can now check the weather for rainy days!',
+      buttons: ['OK']
+    });
+    this.nav.present(alert);
   }
 }
