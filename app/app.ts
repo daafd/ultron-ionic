@@ -1,6 +1,9 @@
 import {App, Platform} from 'ionic-angular';
 import {StatusBar} from 'ionic-native';
 import {TabsPage} from './pages/tabs/tabs';
+import {Http} from 'angular2/http';
+import {provide} from 'angular2/core';
+import {AuthHttp,AuthConfig} from 'angular2-jwt';
 
 
 @App({
