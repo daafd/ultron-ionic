@@ -5,11 +5,14 @@
   Ionic pages and navigation.
 -->
 <ion-navbar *navbar>
-  <ion-title>Get a Quote!</ion-title>
+  <ion-title>Regent het?</ion-title>
 </ion-navbar>
 
 <ion-content padding class="quotes">
-  <h2>Welcome to the Ionic 2 Quotes App!</h2>
+  <div [ngSwitch]="auth.authenticated()">
+    <h2 *ngSwitchWhen="false">Welkom vreemdeling! Nieuw? Maak een account!</h2>
+    <h2 *ngSwitchWhen="true">Welkom, {{user}}</h2>
+  </div>
   <p>You can get a regular quote below, or you can sign in to get a secret quote.</p>
 
   <button (click)="getQuote()">Get Quote</button>

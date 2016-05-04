@@ -28,7 +28,7 @@ export class ProfilePage {
   constructor(private http: Http,public nav: NavController) {
     this.auth = AuthService;
     this.local.get('profile').then(profile => {
-      this.user = JSON.parse(profile);
+      this.user =profile;
     }).catch(error => {
       console.log(error);
     });
@@ -54,6 +54,7 @@ export class ProfilePage {
 
   logout() {
     this.local.remove('id_token');
+    this.local.remove('profile');
     this.user = null;
   }
 
@@ -61,6 +62,7 @@ export class ProfilePage {
     this.error = null;
     this.local.set('id_token', token);
     this.user = this.jwtHelper.decodeToken(token).username;
+    this.local.set('profile',this.user);
 
     let alert = Alert.create({
       title: 'Welcome!',

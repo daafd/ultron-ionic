@@ -1,6 +1,6 @@
 <!-- app/profile/profile.html -->
 <ion-navbar *navbar>
-  <ion-title>Profile</ion-title>
+  <ion-title>Profiel</ion-title>
 </ion-navbar>
 
 <ion-content class="login" *ngIf="!auth.authenticated()">
@@ -61,7 +61,7 @@
 <ion-content>
   <div *ngIf="auth.authenticated()">
     <div padding>
-      <h1>Welcome, {{ user }}</h1>
+      <h1>Wat een mooie naam, {{ user }} !</h1>
       <button block (click)="logout()">Logout</button>
     </div>
   </div>

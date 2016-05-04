@@ -1,4 +1,4 @@
-import {Page, NavController,} from 'ionic-angular';
+import {Page, NavController,LocalStorage, Storage} from 'ionic-angular';
 import {Geolocation} from 'ionic-native';
 import {Http} from 'angular2/http';
 import {AuthHttp, tokenNotExpired} from 'angular2-jwt';
@@ -19,10 +19,19 @@ export class WeatherPage {
   quote: string;
   error: string;
   auth: AuthService;
+  local: Storage = new Storage(LocalStorage);
+  user: string;
+
 
   constructor(public nav: NavController,private http: Http, private authHttp: AuthHttp) {
     this.auth=AuthService;
     this.getCurrentPosition();
+    this.local.get('profile').then(profile => {
+      this.user = profile;
+      console.log(this.user);
+    }).catch(error => {
+      console.log(error);
+    });
   }
 
   getCurrentPosition(){
