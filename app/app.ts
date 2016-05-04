@@ -8,7 +8,15 @@ import {AuthHttp,AuthConfig} from 'angular2-jwt';
 
 @App({
   template: '<ion-nav [root]="rootPage"></ion-nav>',
-  config: {} // http://ionicframework.com/docs/v2/api/config/Config/
+  config: {}, // http://ionicframework.com/docs/v2/api/config/Config/
+  providers: [
+    provide(AuthHttp, {
+      useFactory: (http) => {
+        return new AuthHttp(new AuthConfig(), http);
+      },
+      deps: [Http]
+    })
+  ]
 })
 export class MyApp {
   rootPage: any = TabsPage;
